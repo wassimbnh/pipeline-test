@@ -1,33 +1,34 @@
 pipeline {
     agent any
 
-    environment {
-        // Define environment variables as needed
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64/'
-        MAVEN_HOME = '/opt/apache-maven-3.6.3'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your source code from version control (e.g., Git)
-                checkout scm
+                // Check out the specific Git repository
+                script {
+                    def scmVars = checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: 'main']], // Replace with your branch name
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [
+                            [$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '', honorRefspec: false],
+                            [$class: 'PruneStaleBranch'],
+                            [$class: 'CleanCheckout'],
+                        ],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[url: 'https://github.com/wassimbnh/pipeline-test.git']] // Replace with your Git repository URL
+                    ])
+                }
             }
         }
 
         stage('Build') {
             steps {
-                // Set up the environment for building
-                sh "export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH"
-
-                // Build the Spring Boot application
+                // Build your Spring Boot project using Maven
                 sh 'mvn clean package'
             }
         }
-
-       
     }
-
-    
 }
+
 
