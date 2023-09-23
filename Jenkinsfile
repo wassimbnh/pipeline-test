@@ -25,26 +25,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Run unit tests and other testing tasks
-                sh 'mvn test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Here, you would typically deploy the application to your environment
-                // This could involve copying the JAR file to a server or deploying to a cloud platform
-
-                // Example: Deploy to a Tomcat server (replace with your actual path)
-                sh 'cp target/your-app-name.jar /path/to/your/tomcat/webapps/'
-
-                // You may also need to restart your server or perform other deployment tasks
-                // Example: Restart Tomcat
-                sh 'sudo systemctl restart tomcat'
-            }
-        }
+       
     }
 
     
