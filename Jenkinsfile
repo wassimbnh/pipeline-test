@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables as needed
         JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64/'
-        MAVEN_HOME = 'opt/apache-maven-3.6.3'
+        MAVEN_HOME = '/opt/apache-maven-3.6.3'
     }
 
     stages {
@@ -37,8 +37,8 @@ pipeline {
                 // Here, you would typically deploy the application to your environment
                 // This could involve copying the JAR file to a server or deploying to a cloud platform
 
-                // Example: Deploy to a Tomcat server
-                sh 'cp target/your-app-name.jar /path/to/tomcat/webapps/'
+                // Example: Deploy to a Tomcat server (replace with your actual path)
+                sh 'cp target/your-app-name.jar /path/to/your/tomcat/webapps/'
 
                 // You may also need to restart your server or perform other deployment tasks
                 // Example: Restart Tomcat
@@ -56,7 +56,7 @@ pipeline {
             // You can integrate with various notification services here (e.g., Slack, email)
         }
         failure {
-            // Handle failure, notify and perform any necessary actions
+            // Handle failure, notify, and perform any necessary actions
         }
     }
 }
