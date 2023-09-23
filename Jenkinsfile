@@ -47,16 +47,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Clean up any temporary files or resources if needed
-        }
-        success {
-            // Notify on successful build and deployment
-            // You can integrate with various notification services here (e.g., Slack, email)
-        }
-        failure {
-            // Handle failure, notify, and perform any necessary actions
-        }
-    }
+    
 }
