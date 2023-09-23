@@ -4,31 +4,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Check out the specific Git repository
-                script {
-                    def scmVars = checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: 'main']], // Replace with your branch name
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [
-                            [$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '', honorRefspec: false],
-                            [$class: 'PruneStaleBranch'],
-                            [$class: 'CleanCheckout'],
-                        ],
-                        submoduleCfg: [],
-                        userRemoteConfigs: [[url: 'https://github.com/wassimbnh/pipeline-test.git']] // Replace with your Git repository URL
-                    ])
-                }
+                // Étape de récupération du code source depuis le référentiel Git
+                checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Display System Date') {
             steps {
-                // Build your Spring Boot project using Maven
-                sh 'mvn clean package'
+                // Étape d'affichage de la date système
+                script {
+                    def currentDate = sh(script: 'date', returnStdout: true).trim()
+                    echo "La date système est : ${currentDate}"
+                }
             }
         }
     }
 }
-
 
